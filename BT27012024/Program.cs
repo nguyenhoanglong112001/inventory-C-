@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BT27012024
@@ -22,7 +23,12 @@ namespace BT27012024
                 int key = GameMenu();
                 switch(key)
                 {
-
+                    case 1:
+                        CreateItem();
+                        break;
+                    case 2:
+                        ShowAllItem();
+                        break;
                 }
             }
             Console.ReadKey();
@@ -38,6 +44,55 @@ namespace BT27012024
             int key = int.Parse(Console.ReadLine());
 
             return key;
+        }
+
+        public static void CreateItem()
+        {
+            Console.Clear();
+            for (int i =0;i<items.Length;i++)
+            {
+                ItemType itemtype = (ItemType)GameHelper.GetRandomValue(0, 4);
+                Item newitem = null;
+                switch (itemtype)
+                {
+                    case ItemType.Sword:
+                        newitem = new Item("Sword", itemtype);
+                        break;
+                    case ItemType.Bow:
+                        newitem = new Item("Bow", itemtype);
+                        break;
+                    case ItemType.Amor:
+                        newitem = new Item("Amor", itemtype);
+                        break;
+                    case ItemType.Staff:
+                        newitem = new Item("Staff", itemtype);
+                        break;
+                }
+                items[i] = newitem;
+                Console.WriteLine($"{i + 1}.{items[i].itemname}");
+                Thread.Sleep(100);
+            }
+            Console.ReadKey();
+        }
+
+        public static void ShowAllItem()
+        {
+            Console.Clear();
+            Console.WriteLine("=======List items=======");
+            for (int i =0;i<items.Length;i++)
+            {
+                Console.WriteLine($"{i + 1}.{items[i].itemname}");
+            }
+            Console.WriteLine("Choose 1 item to see detail: ");
+            int key = int.Parse(Console.ReadLine());
+            if (key == 0)
+            {
+                GameMenu();
+            }
+            else
+            {
+                items[key - 1].ShowItemInformation();
+            }
         }
     }
 }

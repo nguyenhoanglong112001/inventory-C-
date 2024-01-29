@@ -35,23 +35,24 @@ namespace BT27012024
         {
             this.itemname = itemname;
             this.type = type;
-            if(GameHelper.GetRandomValue(0,101) <= 1)
+            int rt = GameHelper.GetRandomValue(0, 101); 
+            if(rt <= 1)
             {
                 this.rarity = (Rarity)4;
             }
-            if (GameHelper.GetRandomValue(0,101) <= 6)
+            if (rt<= 6 && rt>1)
             {
                 this.rarity = (Rarity)3;
             }
-            if (GameHelper.GetRandomValue(0, 101) <= 16)
+            if (rt <= 16 && rt > 6)
             {
                 this.rarity = (Rarity)2;
             }
-            if (GameHelper.GetRandomValue(0, 101) <= 41)
+            if (rt <= 41 && rt >16)
             {
                 this.rarity = (Rarity)1;
             }
-            if (GameHelper.GetRandomValue(0, 101) <= 100)
+            if (rt <= 100 && rt > 41)
             {
                 this.rarity = (Rarity)0;
             }
@@ -59,10 +60,12 @@ namespace BT27012024
 
         public void ShowItemInformation()
         {
+            Console.Clear();
             Console.WriteLine("========Item infomation ========");
             Console.WriteLine("Item name: " + itemname);
             Console.WriteLine("Type: " + type.ToString());
             Console.WriteLine("Rarity: " + rarity.ToString());
+            Console.ReadKey();
         }
     }
 }
