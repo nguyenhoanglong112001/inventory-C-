@@ -15,13 +15,11 @@ namespace BT27012024
         static void Main(string[] args)
         {
             items = new Item[10];
-            ConfigItemgold = new int[] {100,150,200,250,400};
             CofigItemgoldUpgrade = new int[] { 150, 200, 250, 300, 500 };
-
             while (true)
             {
                 int key = GameMenu();
-                switch(key)
+                switch (key)
                 {
                     case 1:
                         CreateItem();
@@ -37,6 +35,7 @@ namespace BT27012024
         {
             Console.Clear();
             Console.WriteLine("===========Inventory Manager=============");
+            Console.WriteLine("Your gold: " + CurrencyManager.currentGold);
             Console.WriteLine("1. Create Item");
             Console.WriteLine("2. Show All Item");
             Console.WriteLine("3. Exit");

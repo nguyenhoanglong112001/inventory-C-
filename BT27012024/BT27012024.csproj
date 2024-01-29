@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Amor.cs" />
     <Compile Include="Bow.cs" />
+    <Compile Include="CurrencyManager.cs" />
     <Compile Include="GameHelper.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Program.cs" />
