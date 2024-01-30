@@ -10,12 +10,10 @@ namespace BT27012024
     internal class Program
     {
         public static Item[] items = null;
-        public static int[] ConfigItemgold = null;
-        public static int[] CofigItemgoldUpgrade = null;
+
         static void Main(string[] args)
         {
             items = new Item[10];
-            CofigItemgoldUpgrade = new int[] { 150, 200, 250, 300, 500 };
             while (true)
             {
                 int key = GameMenu();
@@ -26,6 +24,9 @@ namespace BT27012024
                         break;
                     case 2:
                         ShowAllItem();
+                        break;
+                    case 3:
+                        Environment.Exit(0);
                         break;
                 }
             }
@@ -55,16 +56,16 @@ namespace BT27012024
                 switch (itemtype)
                 {
                     case ItemType.Sword:
-                        newitem = new Item("Sword", itemtype);
+                        newitem = new Sword("Sword", itemtype);
                         break;
                     case ItemType.Bow:
-                        newitem = new Item("Bow", itemtype);
+                        newitem = new Bow("Bow", itemtype);
                         break;
                     case ItemType.Amor:
-                        newitem = new Item("Amor", itemtype);
+                        newitem = new Amor("Amor", itemtype);
                         break;
                     case ItemType.Staff:
-                        newitem = new Item("Staff", itemtype);
+                        newitem = new Staff("Staff", itemtype);
                         break;
                 }
                 items[i] = newitem;
@@ -80,7 +81,10 @@ namespace BT27012024
             Console.WriteLine("=======List items=======");
             for (int i =0;i<items.Length;i++)
             {
-                Console.WriteLine($"{i + 1}.{items[i].itemname}");
+                if (items[i] != null)
+                {
+                    Console.WriteLine($"{i + 1}.{items[i].itemname}");
+                }
             }
             Console.WriteLine("Choose 1 item to see detail: ");
             int key = int.Parse(Console.ReadLine());
@@ -91,6 +95,21 @@ namespace BT27012024
             else
             {
                 items[key - 1].ShowItemInformation();
+                Console.WriteLine("1. Sell Item");
+                Console.WriteLine("2. Update Item");
+                int Select = int.Parse (Console.ReadLine());
+                if (Select == 0)
+                {
+                    GameMenu();
+                }
+                else if (Select == 1)
+                {
+                    items[key - 1].SellItem(key-1);
+                }
+                else if (Select == 2)
+                {
+                    items[key - 1].Doupdate();
+                }
             }
         }
     }

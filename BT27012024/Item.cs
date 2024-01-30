@@ -7,28 +7,11 @@ using System.Threading.Tasks;
 
 namespace BT27012024
 {
-    public enum ItemType
-    {
-        Sword,
-        Bow,
-        Amor,
-        Staff
-    }
-
-    public enum Rarity
-    {
-        Common,
-        Rare,
-        Epic,
-        Legendary,
-        Mystical
-    }
     public class Item
     {
         public string itemname;
         public Rarity rarity;
         public ItemType type;
-        public int price;
 
         public Item() { }
 
@@ -40,27 +23,23 @@ namespace BT27012024
             if(rt <= 1)
             {
                 this.rarity = (Rarity)4;
-                this.price = 400;
             }
             if (rt<= 6 && rt>1)
             {
                 this.rarity = (Rarity)3;
-                this.price = 250;
             }
             if (rt <= 16 && rt > 6)
             {
                 this.rarity = (Rarity)2;
-                this.price = 200;
             }
             if (rt <= 41 && rt >16)
             {
                 this.rarity = (Rarity)1;
-                this.price = 150;
+
             }
             if (rt <= 100 && rt > 41)
             {
                 this.rarity = (Rarity)0;
-                this.price = 100;
             }
         }
 
@@ -71,23 +50,53 @@ namespace BT27012024
             Console.WriteLine("Item name: " + itemname);
             Console.WriteLine("Type: " + type.ToString());
             Console.WriteLine("Rarity: " + rarity.ToString());
-            Console.WriteLine("Price: " + price);
-            Console.WriteLine("Do you want to sell this item?");
-            int key = int.Parse(Console.ReadLine());
-            if (key == 0)
-            {
-                Program.ShowAllItem();
-            }
-            else
-            {
-                SellItem();
-            }
+            Console.WriteLine("Price: " + GameConstant.ItemGold[(int)rarity]);
             Console.ReadKey();
         }
         
-        public int SellItem()
+        public void SellItem(int sellIndex)
         {
-            return CurrencyManager.currentGold += price;
+            for (int i = 0;i<Program.items.Length;i++)
+            {
+                if (sellIndex == i)
+                {
+                    CurrencyManager.currentGold += GameConstant.ItemGold[(int)rarity]; 
+                    Program.items[i] = null;
+                    break;
+                }
+            }
+        }
+
+        public bool CanUpdate()
+        {
+            if (CurrencyManager.currentGold > GameConstant.goldtoUpdate[(int)rarity + 1])
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void OnUpdateITem()
+        {
+            if (!CanUpdate())
+            {
+                Console.WriteLine("Not enough gold");
+                return;
+            }
+            else
+            {
+                Doupdate();
+            }
+            Console.ReadKey();
+        }
+        public void Doupdate()
+        {
+            rarity = (Rarity)(int)rarity + 1;
+            Console.WriteLine($"{itemname} update to {rarity.ToString()}");
+            Console.ReadKey();
         }
     }
 }
