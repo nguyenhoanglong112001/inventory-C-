@@ -65,6 +65,9 @@ namespace BT27012024
                     break;
                 }
             }
+            Console.WriteLine("Sell item success");
+            Console.WriteLine("Your current gold: " + CurrencyManager.currentGold);
+            Console.ReadKey();
         }
 
         public bool CanUpdate()
@@ -72,12 +75,14 @@ namespace BT27012024
             if (rarity == Rarity.Mystical)
             {
                 Console.WriteLine("Item has highest rarity. Can not update");
+                Console.ReadKey();
                 return false;
             }
 
             if (CurrencyManager.currentGold < GameConstant.goldtoUpdate[(int)rarity + 1])
             {
                 Console.WriteLine("Not enough gold");
+                Console.ReadKey();
                 return false;
             }
             return true;
@@ -96,7 +101,7 @@ namespace BT27012024
         {
             rarity = (Rarity)(int)rarity + 1;
             CurrencyManager.currentGold -= GameConstant.goldtoUpdate[(int)rarity];
-            Console.WriteLine($"{itemname} update to {rarity.ToString()}");
+            Console.WriteLine($"{itemname} update to {rarity}");
             Console.ReadKey();
         }
 
