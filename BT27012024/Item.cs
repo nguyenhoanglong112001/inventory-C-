@@ -105,9 +105,21 @@ namespace BT27012024
             Console.ReadKey();
         }
 
-        public void MegreItem()
+        public void ShowSameItem()
         {
-
+            Console.Clear();
+            Console.WriteLine("======List of same item========");
+            for (int i =0;i<Program.items.Length;i++) 
+            {
+                if (Program.items[i] != null)
+                {
+                    if (Program.items[i].type == type && Program.items[i].rarity == rarity) 
+                    {
+                        Console.WriteLine($"{i + 1}. {Program.items[i].itemname}");
+                    }
+                }
+            }
+            Console.ReadKey();
         }
     }
 }

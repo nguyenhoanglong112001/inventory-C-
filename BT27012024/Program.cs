@@ -97,9 +97,10 @@ namespace BT27012024
                 items[key - 1].ShowItemInformation();
                 Console.WriteLine("1. Sell Item");
                 Console.WriteLine("2. Update Item");
-                Console.WriteLine("3. Back to menu");
+                Console.WriteLine("3. Megre Item");
+                Console.WriteLine("4. Back to menu");
                 int Select = int.Parse (Console.ReadLine());
-                if (Select == 3)
+                if (Select == 4)
                 {
                     GameMenu();
                 }
@@ -111,6 +112,11 @@ namespace BT27012024
                 else if (Select == 2)
                 {
                     items[key - 1].OnUpdateITem();
+                    ShowAllItem();
+                }
+                else if (Select == 3)
+                {
+                    items[key - 1].ShowSameItem();
                     ShowAllItem();
                 }
             }
