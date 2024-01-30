@@ -69,34 +69,40 @@ namespace BT27012024
 
         public bool CanUpdate()
         {
-            if (CurrencyManager.currentGold > GameConstant.goldtoUpdate[(int)rarity + 1])
+            if (rarity == Rarity.Mystical)
             {
-                return true;
-            }
-            else
-            {
+                Console.WriteLine("Item has highest rarity. Can not update");
                 return false;
             }
+
+            if (CurrencyManager.currentGold < GameConstant.goldtoUpdate[(int)rarity + 1])
+            {
+                Console.WriteLine("Not enough gold");
+                return false;
+            }
+            return true;
         }
 
         public void OnUpdateITem()
         {
             if (!CanUpdate())
             {
-                Console.WriteLine("Not enough gold");
                 return;
             }
-            else
-            {
-                Doupdate();
-            }
+            Doupdate();
             Console.ReadKey();
         }
         public void Doupdate()
         {
             rarity = (Rarity)(int)rarity + 1;
+            CurrencyManager.currentGold -= GameConstant.goldtoUpdate[(int)rarity];
             Console.WriteLine($"{itemname} update to {rarity.ToString()}");
             Console.ReadKey();
+        }
+
+        public void MegreItem()
+        {
+
         }
     }
 }
