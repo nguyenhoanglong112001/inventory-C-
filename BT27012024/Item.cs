@@ -121,5 +121,11 @@ namespace BT27012024
             }
             Console.ReadKey();
         }
+
+        public void MergeItem()
+        {
+            Console.Clear();
+
+        }
     }
 }

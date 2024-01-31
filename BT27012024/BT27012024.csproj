@@ -48,6 +48,8 @@
     <Compile Include="CurrencyManager.cs" />
     <Compile Include="GameConstant.cs" />
     <Compile Include="GameHelper.cs" />
+    <Compile Include="IITem.cs" />
+    <Compile Include="Inventory.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

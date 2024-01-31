@@ -49,27 +49,13 @@ namespace BT27012024
         public static void CreateItem()
         {
             Console.Clear();
+            IITem<Item> inven = new Inventory<Item>();
             for (int i =0;i<items.Length;i++)
             {
-                ItemType itemtype = (ItemType)GameHelper.GetRandomValue(0, 4);
-                Item newitem = null;
-                switch (itemtype)
-                {
-                    case ItemType.Sword:
-                        newitem = new Sword("Sword", itemtype);
-                        break;
-                    case ItemType.Bow:
-                        newitem = new Bow("Bow", itemtype);
-                        break;
-                    case ItemType.Amor:
-                        newitem = new Amor("Amor", itemtype);
-                        break;
-                    case ItemType.Staff:
-                        newitem = new Staff("Staff", itemtype);
-                        break;
-                }
+                ItemType type = (ItemType)GameHelper.GetRandomValue(0, 4);
+                Item newitem = inven.CreateITem($"{type}", type);
                 items[i] = newitem;
-                Console.WriteLine($"{i + 1}.{items[i].itemname}");
+                Console.WriteLine($"{i + 1} . {items[i].itemname}");
                 Thread.Sleep(100);
             }
             Console.ReadKey();
