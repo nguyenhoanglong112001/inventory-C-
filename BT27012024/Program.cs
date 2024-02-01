@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -102,11 +103,10 @@ namespace BT27012024
                 }
                 else if (Select == 3)
                 {
-                    items[key - 1].ShowSameItem();
+                    items[key-1].ShowSameItem(key-1);
                     ShowAllItem();
                 }
             }
         }
-        
     }
 }

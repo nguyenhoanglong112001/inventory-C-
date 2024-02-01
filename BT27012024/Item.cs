@@ -105,27 +105,40 @@ namespace BT27012024
             Console.ReadKey();
         }
 
-        public void ShowSameItem()
+        public void ShowSameItem(int currentindex)
         {
             Console.Clear();
             Console.WriteLine("======List of same item========");
-            for (int i =0;i<Program.items.Length;i++) 
+            for (int i = 0; i < Program.items.Length; i++)
             {
-                if (Program.items[i] != null)
+                if (Program.items[i] != null && i != currentindex)
                 {
-                    if (Program.items[i].type == type && Program.items[i].rarity == rarity) 
+                    if (Program.items[i].type == type && Program.items[i].rarity == rarity)
                     {
                         Console.WriteLine($"{i + 1}. {Program.items[i].itemname}");
                     }
                 }
             }
+            Console.WriteLine("Choose item to megre: ");
+            int itemindex = int.Parse(Console.ReadLine());
+            if (Program.items[currentindex].rarity == Rarity.Mystical)
+            {
+                Console.WriteLine("Item has highest rarity. Can not merge to update");
+                Program.ShowAllItem();
+            }
+            else
+            {
+                Program.items[currentindex].rarity = (Rarity)(int)rarity+1;
+                Console.WriteLine($"{Program.items[currentindex].itemname} merge with {Program.items[itemindex - 1].itemname} update to {rarity}");
+                Program.items[itemindex - 1] = null;
+            }
+
             Console.ReadKey();
         }
 
         public void MergeItem()
         {
             Console.Clear();
-
         }
     }
 }
