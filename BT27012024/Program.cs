@@ -11,6 +11,7 @@ namespace BT27012024
     internal class Program
     {
         public static Item[] items = null;
+        public static Hero[] heros = null;
         public static Dictionary<ItemType, List<Item>> Itemclassify = new Dictionary<ItemType, List<Item>>();
         public static List<Item> itemlist = new List<Item>();
         static void Main(string[] args)
@@ -18,26 +19,48 @@ namespace BT27012024
             items = new Item[10];
             while (true)
             {
-                int key = GameMenu();
-                switch (key)
+                int key = MainMenu();
+                switch(key)
                 {
                     case 1:
-                        CreateItem();
-                        break;
+                        {
+                            HeroGameMenu();
+                            break;
+                        }
                     case 2:
-                        ShowAllItem();
-                        break;
+                        {
+                            ItemGameMenu();
+                            break;
+                        }
                     case 3:
-                        ClassifyItem();
-                        break;
-                    case 4:
-                        Environment.Exit(0);
-                        break;
+                        {
+                            Environment.Exit(0);
+                            break;
+                        }
                 }
             }
-            Console.ReadKey();
         }
-        public static int GameMenu()
+        public static int MainMenu()
+        {
+            Console.WriteLine("========Game 1 ============");
+            Console.WriteLine("1. Hero manager");
+            Console.WriteLine("2. Item manager");
+            Console.WriteLine("3. Exit");
+            int key = int.Parse(Console.ReadLine());
+            return key;
+        }
+        public static int HeroGameMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("==========Hero Manager=============");
+            Console.WriteLine("1. Create Hero");
+            Console.WriteLine("2. Show Hero information");
+            Console.WriteLine("3. Equip item");
+
+            int key = int.Parse(Console.ReadLine());
+            return key;
+        }
+        public static void ItemGameMenu()
         {
             Console.Clear();
             Console.WriteLine("===========Inventory Manager=============");
@@ -45,11 +68,25 @@ namespace BT27012024
             Console.WriteLine("1. Create Item");
             Console.WriteLine("2. Show All Item");
             Console.WriteLine("3. Clasify Item");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("4. Back to main menu");
             Console.WriteLine("chose function: ");
             int key = int.Parse(Console.ReadLine());
 
-            return key;
+            switch (key)
+            {
+                case 1:
+                    CreateItem();
+                    break;
+                case 2:
+                    ShowAllItem();
+                    break;
+                case 3:
+                    ClassifyItem();
+                    break;
+                case 4:
+                    MainMenu() ;
+                    break;
+            }
         }
 
         public static void CreateItem()
@@ -88,7 +125,7 @@ namespace BT27012024
             int key = int.Parse(Console.ReadLine());
             if (key == 0)
             {
-                GameMenu();
+                ItemGameMenu();
             }
             else
             {
@@ -100,7 +137,7 @@ namespace BT27012024
                 int Select = int.Parse (Console.ReadLine());
                 if (Select == 4)
                 {
-                    GameMenu();
+                    ItemGameMenu();
                 }
                 else if (Select == 1)
                 {
@@ -162,7 +199,7 @@ namespace BT27012024
             }
             else
             {
-                GameMenu();
+                ItemGameMenu();
             }
             Console.ReadKey();
         }
