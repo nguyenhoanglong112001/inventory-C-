@@ -11,8 +11,10 @@ namespace BT27012024
     internal class Program
     {
         public static Item[] items = null;
-        public static Hero[] heros = null;
-        public static Dictionary<ItemType, List<Item>> Itemclassify = new Dictionary<ItemType, List<Item>>();
+        public static Player player = new Player("Player");
+        public static Enemy enemy = new Enemy("Enemy");
+        public static Hero[] heros = new Hero[] { player, enemy};
+    public static Dictionary<ItemType, List<Item>> Itemclassify = new Dictionary<ItemType, List<Item>>();
         public static List<Item> itemlist = new List<Item>();
         static void Main(string[] args)
         {
@@ -42,6 +44,7 @@ namespace BT27012024
         }
         public static int MainMenu()
         {
+            Console.Clear();
             Console.WriteLine("========Game 1 ============");
             Console.WriteLine("1. Hero manager");
             Console.WriteLine("2. Item manager");
@@ -49,16 +52,45 @@ namespace BT27012024
             int key = int.Parse(Console.ReadLine());
             return key;
         }
-        public static int HeroGameMenu()
+        public static void HeroGameMenu()
         {
             Console.Clear();
             Console.WriteLine("==========Hero Manager=============");
-            Console.WriteLine("1. Create Hero");
-            Console.WriteLine("2. Show Hero information");
-            Console.WriteLine("3. Equip item");
+            Console.WriteLine("1. Show Hero information");
+            Console.WriteLine("2. Equip item");
+            Console.WriteLine("3. Back to main menu");
 
             int key = int.Parse(Console.ReadLine());
-            return key;
+            switch(key)
+            {
+                case 1:
+                    {
+                        Showheroinfor();
+                        break;
+                    }
+            }
+        }
+
+        public static void Showheroinfor()
+        {
+            Console.Clear();
+            for (int i =0;i<heros.Length;i++)
+            {
+                if (heros[i] != null)
+                    Console.WriteLine($"{i + 1}. {heros[i].heroname}");
+            }
+            Console.WriteLine("Choice hero to see detail: ");
+            int select = int.Parse(Console.ReadLine());
+            if (select == 1)
+            {
+                heros[0].HeroInfomation();
+            }
+            else
+            {
+                heros[1].HeroInfomation();
+            }
+            Console.ReadKey();
+            
         }
         public static void ItemGameMenu()
         {

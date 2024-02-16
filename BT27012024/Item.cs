@@ -12,6 +12,7 @@ namespace BT27012024
         public string itemname;
         public Rarity rarity;
         public ItemType type;
+        public float value {  get; set; } // gia tri cong them chi so
 
         public Item() { }
 
@@ -139,6 +140,10 @@ namespace BT27012024
         public void MergeItem()
         {
             Console.Clear();
+        }
+
+        public virtual void BonusAtribute()
+        {
         }
     }
 }
