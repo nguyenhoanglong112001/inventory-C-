@@ -111,23 +111,25 @@ namespace BT27012024
         {
             Console.WriteLine("Name: " + heroname);
             Console.WriteLine("Hero type: " + herotype);
-            Console.WriteLine("agility: " + agility);
-            Console.WriteLine("strength: " + strength);
-            Console.WriteLine("intelligence: " + intelligence);
-            Console.WriteLine("Health: " + BaseHealth);
-            Console.WriteLine("Mana: " + BaseMana);
-            Console.WriteLine("Attack Dame: " + BaseDame);
-            Console.WriteLine("Attack Speed: " + BaseSpeed);
-            Console.WriteLine("Amor: " + BaseAmor);
+            Console.WriteLine("agility: " + agi);
+            Console.WriteLine("strength: " + str);
+            Console.WriteLine("intelligence: " + intel);
+            Console.WriteLine("Health: " + Hp);
+            Console.WriteLine("Mana: " + MP);
+            Console.WriteLine("Attack Dame: " + Dame);
+            Console.WriteLine("Attack Speed: " + speed);
+            Console.WriteLine("Amor: " + Amor);
             Console.ReadKey();
         }
 
         public void UseItem(Item item)
         {
-            if (itemuse != null)
+            if (itemuse == null)
             {
                 itemuse = item;
             }
+            ReloadAtribute();
+            
         }
 
         public void ReloadAtribute()
@@ -148,7 +150,28 @@ namespace BT27012024
                         increasestr = 25;
                         break;
                     }
+                case ItemType.Bow:
+                    {
+                        increaseSpeed = BaseSpeed * (20 / 100f);
+                        increaseagi = 15;
+                        break;
+                    }
+                case ItemType.Staff:
+                    {
+                        increaseMana = BaseMana * (40 / 100f);
+                        increaseintel = 20;
+                        break;
+                    }
             }
+        }
+
+        public void UnuseItem()
+        {
+            if (itemuse != null)
+            {
+                itemuse = null;
+            }
+            ReloadAtribute();
         }
     }
 }

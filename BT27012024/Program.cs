@@ -36,6 +36,11 @@ namespace BT27012024
                         }
                     case 3:
                         {
+
+                            break;
+                        }
+                    case 4:
+                        {
                             Environment.Exit(0);
                             break;
                         }
@@ -48,7 +53,8 @@ namespace BT27012024
             Console.WriteLine("========Game 1 ============");
             Console.WriteLine("1. Hero manager");
             Console.WriteLine("2. Item manager");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("3. Start Game");
+            Console.WriteLine("4. Exit");
             int key = int.Parse(Console.ReadLine());
             return key;
         }
@@ -66,6 +72,11 @@ namespace BT27012024
                 case 1:
                     {
                         Showheroinfor();
+                        break;
+                    }
+                case 2:
+                    {
+                        ShowAllItem();
                         break;
                     }
             }
@@ -165,9 +176,10 @@ namespace BT27012024
                 Console.WriteLine("1. Sell Item");
                 Console.WriteLine("2. Update Item");
                 Console.WriteLine("3. Megre Item");
-                Console.WriteLine("4. Back to menu");
+                Console.WriteLine("4. Use Item");
+                Console.WriteLine("5. Back to menu");
                 int Select = int.Parse (Console.ReadLine());
-                if (Select == 4)
+                if (Select == 5)
                 {
                     ItemGameMenu();
                 }
@@ -185,6 +197,16 @@ namespace BT27012024
                 {
                     items[key-1].ShowSameItem(key-1);
                     ShowAllItem();
+                }
+                else if (Select == 4)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Choose hero to use item on: ");
+                    int inhero = int.Parse(Console.ReadLine());
+                    if (inhero == 1)
+                    {
+                        heros[inhero - 1].UseItem(items[key-1]);
+                    }
                 }
             }
         }
