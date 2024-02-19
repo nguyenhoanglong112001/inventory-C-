@@ -36,7 +36,7 @@ namespace BT27012024
                         }
                     case 3:
                         {
-
+                            Battle(player, enemy);
                             break;
                         }
                     case 4:
@@ -88,7 +88,7 @@ namespace BT27012024
             for (int i =0;i<heros.Length;i++)
             {
                 if (heros[i] != null)
-                    Console.WriteLine($"{i + 1}. {heros[i].heroname}");
+                    Console.WriteLine($"{i + 1}. {heros[i].Heroname}");
             }
             Console.WriteLine("Choice hero to see detail: ");
             int select = int.Parse(Console.ReadLine());
@@ -267,6 +267,32 @@ namespace BT27012024
                 Console.WriteLine("Name: " + item.itemname);
                 Console.WriteLine("rarity: " + item.rarity);
             }
+        }
+
+        public static void Battle(Hero player1, Hero player2)
+        {
+            int currentturn = player1.Speed > player2.Speed ? 0 : 1;
+            int turn = 1;
+            while (player1.Alive && player2.Alive)
+            {
+                Console.WriteLine($"Turn : {turn}");
+                int targerindex = currentturn == 0 ? 1 : 0;
+                heros[currentturn].Attack(heros[targerindex]);
+                Hero currentHero = heros[currentturn];
+                Hero targetHero = heros[targerindex];
+                Console.WriteLine($"{currentHero.Heroname} deal {currentHero.Dame} to {targetHero.Heroname}");
+                Console.WriteLine($"{currentHero.Heroname} : {currentHero.HP}");
+                Console.WriteLine($"{targetHero.Heroname} : {targetHero.HP}");
+
+                currentturn = targerindex;
+                Console.WriteLine("press any key to countinue");
+                Console.ReadKey();
+                turn++;
+            }
+
+            Hero Winner = heros[0].Alive ? heros[0] : heros[1];
+            Console.WriteLine($"{Winner.Heroname} victory.......");
+            Console.ReadKey();
         }
     }
 }

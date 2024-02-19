@@ -16,57 +16,62 @@ namespace BT27012024
     }
     public class Hero
     {
-        public string heroname;
-        public HeroType herotype;
+        public string Heroname { get; private set; }
+        public HeroType Herotype { get; private set; }
+
         public double BaseDame { get; protected set; } = 50;
+        public double Dame => BaseDame + IncreaseDame;
 
-        public double Dame => BaseDame + increaseDame;
         public double BaseHealth { get; protected set; } = 300;
+        public double HP => BaseHealth + IncreaseHP;
 
-        public double Hp => BaseHealth + increaseHP;
         public double BaseMana { get; protected set; } = 200;
-        public double MP => BaseMana + increaseMana;
+        public double MP => BaseMana + IncreaseMana;
+
         public double BaseSpeed { get; protected set; } = 10;
-        public double speed => BaseSpeed + increaseSpeed;
+        public double Speed => BaseSpeed + IncreaseSpeed;
+
         public double BaseAmor { get; protected set; } = 3;
+        public double Amor => BaseAmor + IncreaseAmor;
 
-        public double Amor => BaseAmor + increaseAmor;
-        public int agility { get; protected set; }
+        public int Agility { get; protected set; }
+        public int Agi => Agility + IncreaseAgi;
 
-        public int agi => agility + increaseagi;
-        public int strength { get; protected set; }
-        public int str => strength + increasestr;
-        public int intelligence { get; protected set; }
+        public int Strength { get; protected set; }
+        public int Str => Strength + IncreaseStr;
 
-        public int intel => intelligence + increaseintel;
-        public Item itemuse;
-        public bool Alive => BaseHealth > 0;
+        public int Intelligence { get; protected set; }
+        public int Intel => Intelligence + IncreaseIntel;
 
-        public double increaseHP { get; protected set; }
-        public double increaseMana { get;protected set; }
-        public double increaseSpeed { get;protected set; }
-        public double increaseDame { get;protected set; }
-        public double increaseAmor { get;protected set; }
-        public int increaseagi {  get;protected set; }
-        public int increasestr {  get;protected set; }
-        public int increaseintel {  get;protected set; }
+        public Item Itemuse { get; private set; }
 
+        public bool Alive => HP > 0;
+
+        // Thuộc tính tăng thêm
+        public double IncreaseHP { get; protected set; }
+        public double IncreaseMana { get; protected set; }
+        public double IncreaseSpeed { get; protected set; }
+        public double IncreaseDame { get; protected set; }
+        public double IncreaseAmor { get; protected set; }
+        public int IncreaseAgi { get; protected set; }
+        public int IncreaseStr { get; protected set; }
+        public int IncreaseIntel { get; protected set; }
         public Hero() { }
 
         public Hero(string heroname)
         {
-            this.heroname = heroname;
-            herotype = (HeroType)GameHelper.GetRandomValue(0, 4);
-            agility = GameHelper.GetRandomValue(0, 81);
+            this.Heroname = heroname;
+            Herotype = (HeroType)GameHelper.GetRandomValue(0, 4);
+            Agility = GameHelper.GetRandomValue(0, 81);
             Thread.Sleep(100);
-            BaseSpeed = BaseSpeed + agility * 1;
-            BaseAmor = BaseAmor + agility * 0.14;
-            strength = GameHelper.GetRandomValue(0, 81);
+            BaseSpeed = BaseSpeed + Agility * 1;
+            BaseAmor = BaseAmor + Agility * 0.14;
+            Strength = GameHelper.GetRandomValue(0, 81);
             Thread.Sleep(100);
-            BaseHealth = BaseHealth + strength * 19;
-            intelligence = GameHelper.GetRandomValue(0, 81);
+            BaseHealth = BaseHealth + Strength * 19;
+            Intelligence = GameHelper.GetRandomValue(0, 81);
             Thread.Sleep(100);
-            BaseMana = BaseMana + intelligence * 13;
+            BaseMana = BaseMana + Intelligence * 13;
             heroatribute();
         }
 
@@ -76,7 +81,10 @@ namespace BT27012024
             {
                 return;
             }
-            BaseHealth -= target.BaseDame*(100/(100+BaseAmor));
+            double damage = Dame * (100 / (100 + Amor));
+            double remainHP = target.HP - damage;
+
+            target.HP = Math.Max(remainHP, 0);
         }
 
         public void Attack(Hero target)
@@ -85,48 +93,56 @@ namespace BT27012024
             {
                 return;
             }
-            target.TakeDame(this);
+            TakeDame(target);
         }
         public void heroatribute()
         {
-            if (herotype == HeroType.Agility)
+            if (Herotype == HeroType.Agility)
             {
-                BaseDame += agility;
+                BaseDame += Agility;
             }
-            if (herotype == HeroType.Strength)
+            if (Herotype == HeroType.Strength)
             {
-                BaseDame += strength;
+                BaseDame += Strength;
             }
-            if (herotype == HeroType.Intelligence)
+            if (Herotype == HeroType.Intelligence)
             {
-                BaseDame += intelligence;
+                BaseDame += Intelligence;
             }
-            if (herotype == HeroType.Universal)
+            if (Herotype == HeroType.Universal)
             {
-                BaseDame += 0.4 * (strength + agility + intelligence);
+                BaseDame += 0.4 * (Strength + Agility + Intelligence);
             }
         }
 
         public void HeroInfomation()
         {
-            Console.WriteLine("Name: " + heroname);
-            Console.WriteLine("Hero type: " + herotype);
-            Console.WriteLine("agility: " + agi);
-            Console.WriteLine("strength: " + str);
-            Console.WriteLine("intelligence: " + intel);
-            Console.WriteLine("Health: " + Hp);
+            Console.WriteLine("Name: " + Heroname);
+            Console.WriteLine("Hero type: " + Herotype);
+            Console.WriteLine("agility: " + Agi);
+            Console.WriteLine("strength: " + Str);
+            Console.WriteLine("intelligence: " + Intel);
+            Console.WriteLine("Health: " + HP);
             Console.WriteLine("Mana: " + MP);
             Console.WriteLine("Attack Dame: " + Dame);
-            Console.WriteLine("Attack Speed: " + speed);
+            Console.WriteLine("Attack Speed: " + Speed);
             Console.WriteLine("Amor: " + Amor);
+            if (Itemuse != null)
+            {
+                Console.WriteLine("Item use: " + Itemuse.itemname);
+            }
+            else
+            {
+                Console.WriteLine("Item use: ");
+            }
             Console.ReadKey();
         }
 
         public void UseItem(Item item)
         {
-            if (itemuse == null)
+            if (Itemuse == null)
             {
-                itemuse = item;
+                Itemuse = item;
             }
             ReloadAtribute();
             
@@ -134,32 +150,32 @@ namespace BT27012024
 
         public void ReloadAtribute()
         {
-            switch(itemuse.type)
+            switch(Itemuse.type)
             {
                 case ItemType.Sword:
                     {
-                        increaseDame = BaseDame * (10 / 100f);
-                        increaseagi = 30;
-                        increasestr = 10;
+                        IncreaseDame = BaseDame * (10 / 100f);
+                        IncreaseAgi = 30;
+                        IncreaseStr = 10;
                         break;
                     }
                 case ItemType.Amor:
                     {
-                        increaseAmor = BaseAmor * (5 / 100f);
-                        increaseHP = BaseHealth * (15 / 100f);
-                        increasestr = 25;
+                        IncreaseAmor = BaseAmor * (5 / 100f);
+                        IncreaseHP = BaseHealth * (15 / 100f);
+                        IncreaseStr = 25;
                         break;
                     }
                 case ItemType.Bow:
                     {
-                        increaseSpeed = BaseSpeed * (20 / 100f);
-                        increaseagi = 15;
+                        IncreaseSpeed = BaseSpeed * (20 / 100f);
+                        IncreaseAgi = 15;
                         break;
                     }
                 case ItemType.Staff:
                     {
-                        increaseMana = BaseMana * (40 / 100f);
-                        increaseintel = 20;
+                        IncreaseMana = BaseMana * (40 / 100f);
+                        IncreaseIntel = 20;
                         break;
                     }
             }
@@ -167,9 +183,9 @@ namespace BT27012024
 
         public void UnuseItem()
         {
-            if (itemuse != null)
+            if (Itemuse != null)
             {
-                itemuse = null;
+                Itemuse = null;
             }
             ReloadAtribute();
         }
