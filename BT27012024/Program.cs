@@ -203,10 +203,9 @@ namespace BT27012024
                     Console.Clear();
                     Console.WriteLine("Choose hero to use item on: ");
                     int inhero = int.Parse(Console.ReadLine());
-                    if (inhero == 1)
-                    {
-                        heros[inhero - 1].UseItem(items[key-1]);
-                    }
+                    heros[inhero - 1].UseItem(items[key - 1]);
+                    Console.WriteLine($"Use {items[key - 1].itemname} on {heros[inhero - 1].Heroname}");
+                    Console.ReadKey();
                 }
             }
         }
@@ -280,11 +279,17 @@ namespace BT27012024
                 heros[currentturn].Attack(heros[targerindex]);
                 Hero currentHero = heros[currentturn];
                 Hero targetHero = heros[targerindex];
-                Console.WriteLine($"{currentHero.Heroname} deal {currentHero.Dame} to {targetHero.Heroname}");
-                Console.WriteLine($"{targetHero.HP} - {currentHero.Dame} = {targetHero.HP - currentHero.Dame}");
-                Console.WriteLine($"{currentHero.Heroname} : {currentHero.HP}");
-                Console.WriteLine($"{targetHero.Heroname} : {targetHero.HP}");
-
+                Console.WriteLine($"{currentHero.Heroname} deal {Math.Round(currentHero.Dame*(100/(100+currentHero.Amor)),0)} to {targetHero.Heroname}");
+                if (targetHero.HP < 0)
+                {
+                    Console.WriteLine($"{currentHero.Heroname} : {currentHero.HP}");
+                    Console.WriteLine($"{targetHero.Heroname} : 0");
+                }
+                else
+                {
+                    Console.WriteLine($"{currentHero.Heroname} : {currentHero.HP}");
+                    Console.WriteLine($"{targetHero.Heroname} : {targetHero.HP}");
+                }
                 currentturn = targerindex;
                 Console.WriteLine("press any key to countinue");
                 Console.ReadKey();

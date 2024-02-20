@@ -62,14 +62,14 @@ namespace BT27012024
         {
             this.Heroname = heroname;
             Herotype = (HeroType)GameHelper.GetRandomValue(0, 4);
-            Agility = GameHelper.GetRandomValue(0, 81);
+            Agility = GameHelper.GetRandomValue(1, 81);
             Thread.Sleep(100);
             BaseSpeed = BaseSpeed + Agility * 1;
             BaseAmor = Math.Round(BaseAmor + Agility * 0.14,0);
-            Strength = GameHelper.GetRandomValue(0, 81);
+            Strength = GameHelper.GetRandomValue(1, 81);
             Thread.Sleep(100);
             BaseHealth = BaseHealth + Strength * 19;
-            Intelligence = GameHelper.GetRandomValue(0, 81);
+            Intelligence = GameHelper.GetRandomValue(1, 81);
             Thread.Sleep(100);
             BaseMana = BaseMana + Intelligence * 13;
             heroatribute();
@@ -135,7 +135,10 @@ namespace BT27012024
                     {
                         IncreaseDame = Math.Round(BaseDame * (10 / 100f),0);
                         IncreaseAgi = 30;
+                        IncreaseSpeed += IncreaseAgi * 1;
+                        IncreaseAmor = Math.Round(IncreaseAmor + IncreaseAgi * 0.14, 0);
                         IncreaseStr = 10;
+                        IncreaseHP = IncreaseHP + IncreaseStr * 19;
                         break;
                     }
                 case ItemType.Amor:
@@ -143,18 +146,22 @@ namespace BT27012024
                         IncreaseAmor = Math.Round(BaseAmor * (5 / 100f), 0);
                         IncreaseHP = Math.Round(BaseHealth * (15 / 100f), 0);
                         IncreaseStr = 25;
+                        IncreaseHP = IncreaseHP + IncreaseStr * 19;
                         break;
                     }
                 case ItemType.Bow:
                     {
                         IncreaseSpeed = Math.Round(BaseSpeed * (20 / 100f), 0);
                         IncreaseAgi = 15;
+                        IncreaseSpeed += IncreaseAgi * 1;
+                        IncreaseAmor = Math.Round(IncreaseAmor + IncreaseAgi * 0.14, 0);
                         break;
                     }
                 case ItemType.Staff:
                     {
                         IncreaseMana = Math.Round(BaseMana * (40 / 100f), 0);
                         IncreaseIntel = 20;
+                        IncreaseMana = IncreaseMana + Intelligence * 13;
                         break;
                     }
             }
@@ -168,7 +175,6 @@ namespace BT27012024
             }
             ReloadAtribute();
         }
-
         public void TakeDame(Hero target)
         {
             if (!Alive)
@@ -176,21 +182,11 @@ namespace BT27012024
                 return;
             }
             double damage = Math.Round(Dame * (100 / (100 + Amor)), 0);
-            if (target.IncreaseHP != 0)
+            target.IncreaseHP -= damage;
+            if (target.IncreaseHP < 0)
             {
-                target.IncreaseHP -= damage;
-                if (target.IncreaseHP < 0)
-                {
-                    target.IncreaseHP = 0;
-                }
-            }
-            else
-            {
-                target.BaseHealth -= damage;
-                if (target.BaseHealth < 0)
-                {
-                    target.BaseHealth = 0;
-                }
+                target.BaseHealth += target.IncreaseHP;
+                target.IncreaseHP = 0;
             }
         }
 
