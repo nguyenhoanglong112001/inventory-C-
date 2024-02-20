@@ -281,6 +281,7 @@ namespace BT27012024
                 Hero currentHero = heros[currentturn];
                 Hero targetHero = heros[targerindex];
                 Console.WriteLine($"{currentHero.Heroname} deal {currentHero.Dame} to {targetHero.Heroname}");
+                Console.WriteLine($"{targetHero.HP} - {currentHero.Dame} = {targetHero.HP - currentHero.Dame}");
                 Console.WriteLine($"{currentHero.Heroname} : {currentHero.HP}");
                 Console.WriteLine($"{targetHero.Heroname} : {targetHero.HP}");
 
