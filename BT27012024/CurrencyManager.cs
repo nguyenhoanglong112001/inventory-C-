@@ -8,6 +8,6 @@ namespace BT27012024
 {
     public class CurrencyManager
     {
-        public static int currentGold;
+        public static int currentGold = 150;
     }
 }

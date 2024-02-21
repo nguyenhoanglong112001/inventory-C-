@@ -12,7 +12,7 @@ namespace BT27012024
     {
         public static Item[] items = null;
         public static Player player = new Player("Player");
-        public static Enemy enemy = new Enemy("Enemy");
+        public static Enemy enemy = new Enemy("Enemy",player);
         public static Hero[] heros = new Hero[] { player, enemy};
     public static Dictionary<ItemType, List<Item>> Itemclassify = new Dictionary<ItemType, List<Item>>();
         public static List<Item> itemlist = new List<Item>();

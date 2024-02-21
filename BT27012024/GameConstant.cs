@@ -24,7 +24,15 @@ namespace BT27012024
     }
     public class GameConstant
     {
-        public static int[] ItemGold = new int[] { 100, 150, 200, 250, 400 };
-        public static int[] goldtoUpdate = new int[] { 150, 200, 250, 300, 500 };
+        public static Dictionary<Rarity, int> itemgold = new Dictionary<Rarity, int> { { Rarity.Common, 100 }, { Rarity.Rare, 150 }, { Rarity.Epic, 200 }, { Rarity.Legendary, 250 }, { Rarity.Mystical, 400 } };
+        public static Dictionary<Rarity, int> goldupdate = new Dictionary<Rarity, int>
+        {
+            {Rarity.Common,150 },
+            {Rarity.Rare,200 },
+            {Rarity.Epic,250 },
+            {Rarity.Legendary,300 },
+            {Rarity.Mystical,500 }
+        };
+
     }
 }

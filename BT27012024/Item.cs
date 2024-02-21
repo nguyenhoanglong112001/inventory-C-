@@ -51,7 +51,7 @@ namespace BT27012024
             Console.WriteLine("Item name: " + itemname);
             Console.WriteLine("Type: " + type.ToString());
             Console.WriteLine("Rarity: " + rarity.ToString());
-            Console.WriteLine("Price: " + GameConstant.ItemGold[(int)rarity]);
+            Console.WriteLine("Price: " + GameConstant.itemgold[rarity]);
             Console.ReadKey();
         }
         
@@ -61,7 +61,7 @@ namespace BT27012024
             {
                 if (sellIndex == i)
                 {
-                    CurrencyManager.currentGold += GameConstant.ItemGold[(int)rarity]; 
+                    CurrencyManager.currentGold += GameConstant.itemgold[rarity]; 
                     Program.items[i] = null;
                     break;
                 }
@@ -80,7 +80,7 @@ namespace BT27012024
                 return false;
             }
 
-            if (CurrencyManager.currentGold < GameConstant.goldtoUpdate[(int)rarity + 1])
+            if (CurrencyManager.currentGold < GameConstant.goldupdate[rarity + 1])
             {
                 Console.WriteLine("Not enough gold");
                 Console.ReadKey();
@@ -101,7 +101,7 @@ namespace BT27012024
         public void Doupdate()
         {
             rarity = (Rarity)(int)rarity + 1;
-            CurrencyManager.currentGold -= GameConstant.goldtoUpdate[(int)rarity];
+            CurrencyManager.currentGold -= GameConstant.goldupdate[rarity];
             Console.WriteLine($"{itemname} update to {rarity}");
             Console.ReadKey();
         }

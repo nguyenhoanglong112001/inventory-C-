@@ -45,6 +45,19 @@ namespace BT27012024
 
         public Item Itemuse { get; private set; }
 
+        public int level { get; protected set; }
+        public int Level
+        {
+            get
+            {
+                return level;
+            }
+            set
+            {
+                level = value;
+            }
+        }
+
         public bool Alive => HP > 0;
 
         // Thuộc tính tăng thêm
@@ -97,6 +110,7 @@ namespace BT27012024
         public void HeroInfomation()
         {
             Console.WriteLine("Name: " + Heroname);
+            Console.WriteLine("Level: " + level);
             Console.WriteLine("Hero type: " + Herotype);
             Console.WriteLine("agility: " + Agi);
             Console.WriteLine("strength: " + Str);

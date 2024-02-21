@@ -10,6 +10,7 @@ namespace BT27012024
     {
         public Player(string heroname) : base(heroname)
         {
+            level = 1;
         }
     }
 }
