@@ -12,20 +12,21 @@ namespace BT27012024
         public string itemname;
         public Rarity rarity;
         public ItemType type;
-        public float value {  get; set; } // gia tri cong them chi so
+        public int level;
+        public float value { get; set; } // gia tri cong them chi so
 
         public Item() { }
 
-        public Item(string itemname,ItemType type)
+        public Item(string itemname, ItemType type)
         {
             this.itemname = itemname;
             this.type = type;
             int rt = GameHelper.GetRandomValue(0, 101);
-            if(rt <= 1)
+            if (rt <= 1)
             {
                 this.rarity = (Rarity)4;
             }
-            if (rt<= 6 && rt>1)
+            if (rt <= 6 && rt > 1)
             {
                 this.rarity = (Rarity)3;
             }
@@ -33,7 +34,7 @@ namespace BT27012024
             {
                 this.rarity = (Rarity)2;
             }
-            if (rt <= 41 && rt >16)
+            if (rt <= 41 && rt > 16)
             {
                 this.rarity = (Rarity)1;
 
@@ -42,26 +43,16 @@ namespace BT27012024
             {
                 this.rarity = (Rarity)0;
             }
+            level = 1;
         }
 
-        public void ShowItemInformation()
-        {
-            Console.Clear();
-            Console.WriteLine("========Item infomation ========");
-            Console.WriteLine("Item name: " + itemname);
-            Console.WriteLine("Type: " + type.ToString());
-            Console.WriteLine("Rarity: " + rarity.ToString());
-            Console.WriteLine("Price: " + GameConstant.itemgold[rarity]);
-            Console.ReadKey();
-        }
-        
         public void SellItem(int sellIndex)
         {
-            for (int i = 0;i<Program.items.Length;i++)
+            for (int i = 0; i < Program.items.Length; i++)
             {
                 if (sellIndex == i)
                 {
-                    CurrencyManager.currentGold += GameConstant.itemgold[rarity]; 
+                    CurrencyManager.currentGold += GameConstant.itemgold[rarity];
                     Program.items[i] = null;
                     break;
                 }
@@ -69,81 +60,6 @@ namespace BT27012024
             Console.WriteLine("Sell item success");
             Console.WriteLine("Your current gold: " + CurrencyManager.currentGold);
             Console.ReadKey();
-        }
-
-        public bool CanUpdate()
-        {
-            if (rarity == Rarity.Mystical)
-            {
-                Console.WriteLine("Item has highest rarity. Can not update");
-                Console.ReadKey();
-                return false;
-            }
-
-            if (CurrencyManager.currentGold < GameConstant.goldupdate[rarity + 1])
-            {
-                Console.WriteLine("Not enough gold");
-                Console.ReadKey();
-                return false;
-            }
-            return true;
-        }
-
-        public void OnUpdateITem()
-        {
-            if (!CanUpdate())
-            {
-                return;
-            }
-            Doupdate();
-            Console.ReadKey();
-        }
-        public void Doupdate()
-        {
-            rarity = (Rarity)(int)rarity + 1;
-            CurrencyManager.currentGold -= GameConstant.goldupdate[rarity];
-            Console.WriteLine($"{itemname} update to {rarity}");
-            Console.ReadKey();
-        }
-
-        public void ShowSameItem(int currentindex)
-        {
-            Console.Clear();
-            Console.WriteLine("======List of same item========");
-            for (int i = 0; i < Program.items.Length; i++)
-            {
-                if (Program.items[i] != null && i != currentindex)
-                {
-                    if (Program.items[i].type == type && Program.items[i].rarity == rarity)
-                    {
-                        Console.WriteLine($"{i + 1}. {Program.items[i].itemname}");
-                    }
-                }
-            }
-            Console.WriteLine("Choose item to megre: ");
-            int itemindex = int.Parse(Console.ReadLine());
-            if (Program.items[currentindex].rarity == Rarity.Mystical)
-            {
-                Console.WriteLine("Item has highest rarity. Can not merge to update");
-                Program.ShowAllItem();
-            }
-            else
-            {
-                Program.items[currentindex].rarity = (Rarity)(int)rarity+1;
-                Console.WriteLine($"{Program.items[currentindex].itemname} merge with {Program.items[itemindex - 1].itemname} update to {rarity}");
-                Program.items[itemindex - 1] = null;
-            }
-
-            Console.ReadKey();
-        }
-
-        public void MergeItem()
-        {
-            Console.Clear();
-        }
-
-        public virtual void BonusAtribute()
-        {
         }
     }
 }

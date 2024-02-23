@@ -11,10 +11,5 @@ namespace BT27012024
         public Bow(string itemname, ItemType type) : base(itemname, type)
         {
         }
-
-        public override void BonusAtribute()
-        {
-            
-        }
     }
 }

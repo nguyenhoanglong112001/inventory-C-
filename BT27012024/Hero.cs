@@ -45,6 +45,14 @@ namespace BT27012024
 
         public Item Itemuse { get; private set; }
 
+        public Item itemuse
+        {
+            set
+            {
+                Itemuse = value;
+            }
+        }
+
         public int level { get; protected set; } = 1;
         public int Level
         {

@@ -11,7 +11,8 @@ namespace BT27012024
         Sword,
         Bow,
         Amor,
-        Staff
+        Staff,
+        UpdateStone
     }
 
     public enum Rarity
@@ -33,5 +34,6 @@ namespace BT27012024
             {Rarity.Legendary,300 },
             {Rarity.Mystical,500 }
         };
+        public static int goldtopuplv = 100;
     }
 }
