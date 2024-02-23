@@ -33,6 +33,5 @@ namespace BT27012024
             {Rarity.Legendary,300 },
             {Rarity.Mystical,500 }
         };
-
     }
 }

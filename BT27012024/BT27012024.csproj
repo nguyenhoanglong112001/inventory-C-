@@ -46,6 +46,7 @@
     <Compile Include="Amor.cs" />
     <Compile Include="Bow.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="EXPmanager.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="CurrencyManager.cs" />
     <Compile Include="GameConstant.cs" />

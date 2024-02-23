@@ -268,8 +268,17 @@ namespace BT27012024
             }
         }
 
-        public static void Battle(Hero player1, Hero player2)
+        public static void Battle(Player player1,Enemy player2)
         {
+            double startbasehp = player1.BaseHealth;
+            double startincreasehp = player1.IncreaseHP;
+            Console.Clear();
+            Console.WriteLine($"{player1.Heroname} info: ");
+            player1.HeroInfomation();
+            Console.WriteLine($"{player2.Heroname} info: ");
+            player2.HeroInfomation();
+            Console.WriteLine("Press any key to begin the battle");
+            Console.Clear();
             int currentturn = player1.Speed > player2.Speed ? 0 : 1;
             int turn = 1;
             while (player1.Alive && player2.Alive)
@@ -291,14 +300,24 @@ namespace BT27012024
                     Console.WriteLine($"{targetHero.Heroname} : {targetHero.HP}");
                 }
                 currentturn = targerindex;
-                Console.WriteLine("press any key to countinue");
-                Console.ReadKey();
                 turn++;
+                Thread.Sleep(100);
             }
 
             Hero Winner = heros[0].Alive ? heros[0] : heros[1];
             Console.WriteLine($"{Winner.Heroname} victory.......");
             Console.ReadKey();
+            player1.SetBaseHP = startbasehp;
+            player1.SetIncreaseHP = startincreasehp;
+            enemy = CreateEnemy();
+            player1.currentexp += 100;
+        }
+
+        public static Enemy CreateEnemy()
+        {
+            Enemy newEnemy = new Enemy("Monster", player);
+            heros[1] = newEnemy;
+            return newEnemy;
         }
     }
 }

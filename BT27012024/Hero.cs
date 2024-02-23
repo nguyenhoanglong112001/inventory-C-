@@ -45,7 +45,7 @@ namespace BT27012024
 
         public Item Itemuse { get; private set; }
 
-        public int level { get; protected set; }
+        public int level { get; protected set; } = 1;
         public int Level
         {
             get
@@ -55,6 +55,21 @@ namespace BT27012024
             set
             {
                 level = value;
+            }
+        }
+        public double SetBaseHP
+        {
+            set
+            {
+                BaseHealth = value;
+            }
+        }
+
+        public double SetIncreaseHP
+        {
+            set
+            {
+                IncreaseHP = value;
             }
         }
 
@@ -85,9 +100,16 @@ namespace BT27012024
             Intelligence = GameHelper.GetRandomValue(1, 81);
             Thread.Sleep(100);
             BaseMana = BaseMana + Intelligence * 13;
-            heroatribute();
+            heroatributebytype();
         }
-        public void heroatribute()
+        public void LoadheroIncreaseAtribute()
+        {
+            IncreaseSpeed += IncreaseAgi * 1;
+            IncreaseAmor = Math.Round(IncreaseAmor + IncreaseAgi * 0.14, 0);
+            IncreaseHP += IncreaseStr * 19;
+            IncreaseMana += IncreaseIntel * 13;
+        }
+        public void heroatributebytype()
         {
             if (Herotype == HeroType.Agility)
             {
@@ -107,7 +129,7 @@ namespace BT27012024
             }
         }
 
-        public void HeroInfomation()
+        public virtual void HeroInfomation()
         {
             Console.WriteLine("Name: " + Heroname);
             Console.WriteLine("Level: " + level);
