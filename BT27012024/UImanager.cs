@@ -174,12 +174,7 @@ namespace BT27012024
             {
                 return;
             }
-            Doupdate(item);
-            Console.ReadKey();
-        }
-        public static void Doupdate(Item item)
-        {
-            item.rarity = (Rarity)(int)item.rarity + 1;
+            item.Doupdate();
             CurrencyManager.currentGold -= GameConstant.goldupdate[item.rarity];
             Console.WriteLine($"{item.itemname} update to {item.rarity}");
             Console.ReadKey();
@@ -192,6 +187,7 @@ namespace BT27012024
                 Console.ReadKey();
                 return false;
             }
+            CurrencyManager.currentGold -= GameConstant.goldupdate[item.rarity];
             return true;
         }
         public static void Onupdatelv(Item item)
@@ -200,14 +196,10 @@ namespace BT27012024
             {
                 return;
             }
-            UImanager.DoUpdateLv(item);
-            Console.ReadKey();
-        }
-        public static void DoUpdateLv(Item item)
-        {
-            item.level += 1;
+            item.DoUpdateLv();
             CurrencyManager.currentGold -= GameConstant.goldtopuplv;
             Console.WriteLine($"{item.itemname} update to {item.level}");
+            Console.ReadKey();
         }
     }
 }

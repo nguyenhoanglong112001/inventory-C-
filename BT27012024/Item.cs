@@ -61,5 +61,17 @@ namespace BT27012024
             Console.WriteLine("Your current gold: " + CurrencyManager.currentGold);
             Console.ReadKey();
         }
+
+        public void Doupdate()
+        {
+            rarity = (Rarity)(int)rarity + 1;
+            Console.ReadKey();
+        }
+
+        public void DoUpdateLv()
+        {
+            level += 1;
+            Console.WriteLine($"{itemname} update to {level}");
+        }
     }
 }
